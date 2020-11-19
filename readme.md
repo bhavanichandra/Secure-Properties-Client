@@ -34,3 +34,7 @@ For more information visit [Mulesoft Documentation](https://docs.mulesoft.com/mu
 ## Build
 
 Build using `npm install` and `npm start` to run the app
+
+## Releases v1
+
+To run the release, put both of the files in a folder and add the folder to the path. Use `secureit` command to start the app globally
