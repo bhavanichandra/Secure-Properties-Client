@@ -1,6 +1,6 @@
 # Secure Properties Console Client
 
-![License](https://img.shields.io/hexpm/l/plug) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This Console App is an abstraction to Secure Properties Jar, which can be used to encrypt string or a file.
 
