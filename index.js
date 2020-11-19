@@ -1,9 +1,11 @@
 const prompts = require("prompts");
-const path = require("path");
-
-const jarfile = path.join(__dirname, "..", "secure-properties-tool.jar");
 
 const questions = [
+	{
+		type: "text",
+		name: "pathToJarFile",
+		message: "Enter Full Path to Secure Properties Jar file: "
+	},
 	{
 		type: "text",
 		name: "typeOfInput",
@@ -53,9 +55,10 @@ const userInputFunction = async () => {
 	return response;
 };
 
-const secureString = (op, alg, mode, key, value) => {
+const secureString = (jarfile, op, alg, mode, key, value) => {
 	const exec = require("child_process").exec;
-	const command = `java -cp ${jarfile} com.mulesoft.tools.SecurePropertiesTool string ${op} ${alg} ${mode} ${key} ${value}`;
+	const command = `java -cp ${jarfile}r com.mulesoft.tools.SecurePropertiesTool string ${op} ${alg} ${mode} ${key} ${value}`;
+	console.log("command: ", command);
 	exec(command, (error, stdout, stderr) => {
 		if (stderr) {
 			console.log("Standard Error: " + stderr);
@@ -67,15 +70,17 @@ const secureString = (op, alg, mode, key, value) => {
 	});
 };
 
-const secureFile = (op, alg, mode, key, inputFile, outputFile) => {
+const secureFile = (jarfile, op, alg, mode, key, inputFile, outputFile) => {
 	const exec = require("child_process").exec;
 	const command = `java -cp ${jarfile} com.mulesoft.tools.SecurePropertiesTool file ${op} ${alg} ${mode} ${key} ${inputFile} ${outputFile}`;
 	exec(command, (error, stdout, stderr) => {
 		if (stderr) {
 			console.log("Standard Error: " + stderr);
+			return;
 		}
 		if (error) {
 			console.log("Execution Error: " + error);
+			return;
 		}
 		console.log("Encrypted Sucessfully");
 	});
@@ -83,9 +88,17 @@ const secureFile = (op, alg, mode, key, inputFile, outputFile) => {
 
 userInputFunction().then((resp) => {
 	if (resp.typeOfInput === "string") {
-		secureString(resp.operation, resp.alg, resp.mode, resp.key, resp.value);
+		secureString(
+			resp.pathToJarFile,
+			resp.operation,
+			resp.alg,
+			resp.mode,
+			resp.key,
+			resp.value
+		);
 	} else if (resp.typeOfInput === "file") {
 		secureFile(
+			resp.pathToJarFile,
 			resp.operation,
 			resp.alg,
 			resp.mode,
@@ -94,6 +107,6 @@ userInputFunction().then((resp) => {
 			resp.outputFile
 		);
 	} else {
-		console.log("Invalid Type");
+		console.log("Invalid Entry");
 	}
 });
