@@ -57,7 +57,7 @@ const userInputFunction = async () => {
 
 const secureString = (jarfile, op, alg, mode, key, value) => {
 	const exec = require("child_process").exec;
-	const command = `java -cp ${jarfile}r com.mulesoft.tools.SecurePropertiesTool string ${op} ${alg} ${mode} ${key} ${value}`;
+	const command = `java -cp ${jarfile} com.mulesoft.tools.SecurePropertiesTool string ${op} ${alg} ${mode} ${key} ${value}`;
 	console.log("command: ", command);
 	exec(command, (error, stdout, stderr) => {
 		if (stderr) {
