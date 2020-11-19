@@ -1,0 +1,15 @@
+{
+  "name": "secure-properties-app",
+  "version": "1.0.0",
+  "description": "Node application used to secure properties from anywhere in the server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bhavani Chandra",
+  "license": "ISC",
+  "dependencies": {
+    "prompts": "^2.4.0"
+  }
+}
